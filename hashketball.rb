@@ -170,12 +170,6 @@ def player_numbers(team_name)
   return array
 end
 
-# def team_names
-#   game_hash.each do |location, data|
-#     if location ==
-#     return location[:team_name]
-#   end
-# end
 
 def team_names
   hash = game_hash
@@ -189,24 +183,6 @@ def team_names
   end
   return array
 end
-
-# def player_numbers(team_name)
-#   game_hash.each do |location, team_data| 
-#     team_data each do |attribute, data|
-#     if attribute == number
-#     puts name.values
-#   end
-# end
-# end
-
-# def player_stats(player_stats)
-#   game_hash.each do |location, team_data|
-#     if team_data == players
-#       puts team_data
-#     end
-#   end
-# end
-# end
 
 def player_stats(name)
   hash = game_hash
@@ -242,4 +218,62 @@ def big_shoe_rebounds
   end
 end
 
+def most_points_scored
+  
+  best_score = nil
+  best_player = ""
+  game_hash.each do |location, team_data|
+    binding.pry
+    team_data[:players].each do |name, data|
+      points = data[:points]
+      
+        if points > best_score
+          
+          best_score = points
+          best_player = name[:players]
+        end
+      end
+    end
+  return best_player
+end
 
+def winning_team
+  away = 0 
+  home = 0
+  # home_total = 96
+  # away_total = 85
+    game_hash[:home][:players].each do |name, data|
+      home += data[:points]
+    end
+    game_hash[:away][:players].each do |name, data|
+      away += data[:points]
+    end
+      if home > away
+        game_hash[:home][:team_name]
+      else
+        game_hash[:away][:team_name]
+      end 
+    end
+
+def player_with_longest_name
+  longest_length = nil
+  game_hash.each do |location, team_data|
+    team_data[:players].each do |name, data|
+      longest_length ||= data
+      longest_length = data if data[:players].length > longest_length[:players].length
+      return longest_length[:players] 
+    end
+  end
+  return longest_length[:players] 
+end
+
+
+
+# def long_name_steals_a_ton
+#   game_hash.each do |location, team_data|
+#     team_data[:players].each do |name|
+#       # name.length = name[:players]
+#         if name.length
+#   end
+# end
+# end
